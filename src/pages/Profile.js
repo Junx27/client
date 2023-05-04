@@ -76,7 +76,7 @@ function Profile() {
         </div>
         <div className="col-3 ms-3 pt-3">
           <div>
-            <h5 className="biodata">Biodata</h5>
+            <h5 className="biodata orange">Biodata</h5>
             <hr />
             Tempat/Tgl Lahir: <br />
             <br />
@@ -107,7 +107,7 @@ function Profile() {
             <br />
             <hr />
           </div>
-          <h5 className="biodata mt-5">Contact</h5>
+          <h5 className="biodata mt-5 orange">Contact</h5>
           <hr />
           <div className="text-center">
             <img className="sosial-media me-2" src={whatsapp} alt="" />
