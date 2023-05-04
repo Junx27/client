@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
+
+.font {
+  font-family: Secular One, sans-serif;
+  letter-spacing: 1px;
+}
+
+.bg-pink {
+  color: white;
+  background-color: #e11299;
+  width: 400px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+.bg-orange {
+  border: 1px solid #fc4f00;
+  width: 120px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+.bg-orange-hover:hover {
+  color: white;
+  background-color: #fc4f00;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+.bg-white {
+  background-color: white;
+  width: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.btn-orange {
+  text-align: center;
+  padding-top: 2px;
+  margin-left: 110px;
+  background-color: #fc4f00;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+.bg-purple {
+  background-color: #865dff;
+  width: 250px;
+}
+.text-hover:hover {
+  color: #fc4f00;
+}
+.pink {
+  color: #e11299;
+}
+.purple {
+  color: #865dff;
+}
+.orange {
+  color: #fc4f00;
+}
+.blue {
+  color: #19376d;
+}
+
+.grow {
+  transition: all 0.2s ease-in-out;
+}
+.grow:hover {
+  transform: scale(1.01);
+}
+.text {
+  text-align: justify;
+}

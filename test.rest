@@ -1,0 +1,11 @@
+
+curl 'https://vmsgykrayjbmvaktlllg.supabase.co/rest/v1/user?select=*' \
+-H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0"
+
+###
+
+curl 'https://vmsgykrayjbmvaktlllg.supabase.co/rest/v1/employe?select=*,pay(email,alamat)' \
+-H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0"
+
