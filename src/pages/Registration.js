@@ -9,7 +9,7 @@ function Registration() {
   return (
     <div className="container w-50 mt-5">
       <h1 className="text-center mt-3 blue font">
-        Registrati<span className="orange">tion</span>
+        Registra<span className="orange">tion</span>
       </h1>
       <hr />
       <Form className="border border-warning  rounded p-5 mt-5 shadow p-3 mb-5 bg-body">

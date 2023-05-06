@@ -9,10 +9,12 @@ import Info from "./pages/Info";
 import Registration from "./pages/Registration";
 import CreatePost from "./pages/CreatePost";
 import LandingPages from "./pages/LandingPages";
+import ProfilCompany from "./pages/ProfileCompany";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import logoimg from "././assets/images/logo.png";
+import ProfileCompany from "./pages/ProfileCompany";
 
 function App() {
   return (
@@ -48,6 +50,9 @@ function App() {
               <Nav.Link className="text-hover" href="/profile">
                 Profile
               </Nav.Link>
+              <Nav.Link className="text-hover" href="/profilecompany">
+                Profile Company
+              </Nav.Link>
               <Nav.Link className="text-hover" href="/info">
                 Info
               </Nav.Link>
@@ -70,9 +75,48 @@ function App() {
           <Route exact path="/registration" element={<Registration />} />
           <Route exact path="/landingpages" element={<LandingPages />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/profilecompany" element={<ProfileCompany />} />
           <Route exact path="/info" element={<Info />} />
         </Routes>
       </Router>
+      <div className="container">
+        <div className="row text-start mt-5">
+          <hr />
+          <div className="col-3 offset-2">
+            <h5 className="orange">ILOKA</h5>
+            <br />
+            <p className="blue ms-1">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. In ut
+              unde numquam quaerat nostrum molestias expedita! Sit, cum. Non
+              explicabo doloribus fuga sed labore pariatur quas unde enim!
+              Laudantium, rerum!
+            </p>
+          </div>
+          <div className="col-3 ms-4">
+            <h5 className="orange">Hubungi Kami</h5>
+            <br />
+            <div className="blue">
+              <div>Email: iloka@gmail.com</div>
+              <div>Tlp: 0987 1234 7876</div>
+            </div>
+          </div>
+          <div className="col-3 ms-4">
+            <h5 className="orange">Developer</h5>
+            <br />
+            <div className="blue">
+              <div>Senna Bhany Majid</div>
+              <div>Ikshan Sulstyo Pambudi</div>
+              <div>Sri Haryani</div>
+              <div>Mizan Eka Putra</div>
+              <div>Tri Saptono</div>
+              <div>Muhamad Asvul Annas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="text-muted-footer text-center mt-3 mb-3">
+        Copyright@ILOKA2023
+      </div>
     </div>
   );
 }

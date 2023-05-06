@@ -29,6 +29,21 @@
   text-align: center;
   border-radius: 5px;
 }
+.bg-orange-btn {
+  border: 1px solid #fc4f00;
+  width: 120px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-align: center;
+  border-radius: 5px;
+}
+.bg-orange-hover-btn:hover {
+  color: white;
+  background-color: #fc4f00;
+  padding: 2px;
+  text-align: center;
+  border-radius: 5px;
+}
 .bg-white {
   background-color: white;
   width: auto;
@@ -104,4 +119,27 @@
 .sosial-media {
   width: 30px;
   height: 30px;
+}
+.info {
+  color: white;
+  width: 150px;
+  height: auto;
+  padding: 10px;
+  background-color: #fc4f00;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 40px;
+  margin-left: 35%;
+}
+.container-event {
+  width: 1000px;
+  height: auto;
+  align-items: center;
+}
+.text-muted-footer {
+  color: white;
+  font-size: 15px;
+  background-color: #fc4f00;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
