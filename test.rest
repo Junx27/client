@@ -1,11 +1,13 @@
-
-curl 'https://vmsgykrayjbmvaktlllg.supabase.co/rest/v1/user?select=*' \
--H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0" \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0"
+###
+curl 'https://gwzjsxzbqwybnifecbqc.supabase.co/rest/v1/Tunjangan_id?select=*' \
+-H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3empzeHpicXd5Ym5pZmVjYnFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM1NjM5MDEsImV4cCI6MTk5OTEzOTkwMX0.EnTPswGNuKDKuAQqRlSu8mcaSBnUNAnZxTbCdG-Pchs" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3empzeHpicXd5Ym5pZmVjYnFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM1NjM5MDEsImV4cCI6MTk5OTEzOTkwMX0.EnTPswGNuKDKuAQqRlSu8mcaSBnUNAnZxTbCdG-Pchs"
 
 ###
-
-curl 'https://vmsgykrayjbmvaktlllg.supabase.co/rest/v1/employe?select=*,pay(email,alamat)' \
--H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0" \
--H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtc2d5a3JheWpibXZha3RsbGxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODE2OTQ5NjAsImV4cCI6MTk5NzI3MDk2MH0.7bEyq3vemRpynoowHLlXGXh30RYrkL_y9xQYdIrtv-0"
-
+curl -X POST 'https://rhmjeleyaoxxsomfutfr.supabase.co/auth/v1/signup' \
+-H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJobWplbGV5YW94eHNvbWZ1dGZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM2MDU2NTYsImV4cCI6MTk5OTE4MTY1Nn0.Sph_5i5LbER1fQXMsBuO72Rkx_VPsaO47liXOcdMKAs" \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "tari@gmail.com",
+  "password": "tariku"
+}'

@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
 
+.span {
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  background-color: red;
+}
+
 .font {
   font-family: Secular One, sans-serif;
   letter-spacing: 1px;

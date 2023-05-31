@@ -1,45 +1,70 @@
 import React, { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
+import supabase from "../config/supabaseClientAdmin";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  const [fetchError, setFetchError] = useState(null);
-  const [productList, setProductList] = useState(null);
+  let navigate = useNavigate();
+  const [post, setPost] = useState();
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
-    const fetchProductList = async () => {
-      const { data, error } = await supabase.from("Tunjangan_id").select("*");
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
 
-      if (error) {
-        setFetchError("Tidak Dapat mengambil data");
-        setProductList(null);
-        console.log(error);
-      }
-      if (data) {
-        setProductList(data);
-        console.log(data);
-        setFetchError(null);
-      }
-    };
-    fetchProductList();
+    return () => subscription.unsubscribe();
   }, []);
 
+  function handlePost(e) {
+    setPost(e.target.value);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const { data } = await supabase.from("post").insert([
+      {
+        post,
+        user_id: session.user.id,
+      },
+    ]);
+  }
+
+  const handleLogin = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: "admin@gmail.com",
+      password: "adminku",
+    });
+    navigate("/homeadmin");
+  };
+
+  async function handleCreateAdmin(e) {
+    e.preventDefault();
+
+    let { data, error } = await supabase.auth.signUp({
+      email: "admin@gmail.com",
+      password: "adminku",
+    });
+  }
+  const handleSignOut = async () => {
+    const { data } = supabase.auth.signOut();
+  };
   return (
     <div>
-      This is Home Pages
-      <div>
-        {fetchError && <p>{fetchError}</p>}
-        {productList && (
-          <div className="user">
-            {productList.map((user) => (
-              <div key={user.id}>
-                <div className="text-primary">
-                  metode pembayaran: {user.nama}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <label htmlFor="">post</label>
+      <br />
+      <input type="text" value={post} onChange={handlePost} />
+      <button onClick={handleSubmit}>submit</button>
+      <br />
+      <br />
+      <button onClick={handleLogin}>login</button>
+      <button onClick={handleCreateAdmin}>Create Admin</button>
+      <button onClick={handleSignOut}>Signout</button>
     </div>
   );
 }
