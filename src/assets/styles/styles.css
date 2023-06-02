@@ -7,6 +7,17 @@
   background-color: red;
 }
 
+.icon {
+  color: #19376d;
+  font-size: 25px;
+}
+
+.font_profile {
+  font-family: Secular One, sans-serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
 .font {
   font-family: Secular One, sans-serif;
   letter-spacing: 1px;
@@ -23,7 +34,7 @@
 }
 .bg-orange {
   border: 1px solid #fc4f00;
-  width: 120px;
+  width: 110px;
   padding-top: 5px;
   padding-bottom: 5px;
   text-align: center;

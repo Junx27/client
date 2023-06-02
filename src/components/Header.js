@@ -6,6 +6,7 @@ import logoimg from "../assets/images/logo.png";
 import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClient";
 import ProfileName from "./ProfileName";
+import { BsBoxArrowRight } from "react-icons/bs";
 
 function Header() {
   const [session, setSession] = useState();
@@ -75,11 +76,11 @@ function Header() {
               {session ? (
                 <>
                   <button
-                    className="bg-orange-hover bg-orange"
+                    className="icon btn mb-2"
                     href="/"
                     onClick={handleLogOut}
                   >
-                    Logout
+                    <BsBoxArrowRight />
                   </button>
                 </>
               ) : (

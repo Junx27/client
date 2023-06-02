@@ -9,10 +9,26 @@ import tiktok from "../../assets/images/tiktok.png";
 import LoginSession from "../../components/LoginSession";
 import supabase from "../../config/supabaseClient";
 import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
+import { CiViewList, CiEdit } from "react-icons/ci";
 
 function Profile() {
+  let navigate = useNavigate();
   const [session, setSession] = useState();
+  const [profile, setProfile] = useState();
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchProfile() {
+    const { data: profile } = await supabase
+      .from("profile")
+      .select("*")
+      .eq("user_id", session.user.id);
+
+    setProfile(profile);
+  }
   useEffect(() => {
     setSession(supabase.auth.getSession());
 
@@ -38,16 +54,31 @@ function Profile() {
                   alt=""
                 />
               </div>
-              <div className="name">
-                Muhamad Saiful Mujib
-                <hr />
-              </div>
-              <p className="text-muted text-end shadow pe-2">
-                <span className="orange">Mastered Abilities:</span> Fresh
-                Graduated | Web Developer | Design | More
-                <hr />
-              </p>
-              <span className="btn btn-warning">Riwayat Lamaran Kerja</span>
+              {profile &&
+                profile.map((profile) => (
+                  <>
+                    <div className="name" key={profile.id}>
+                      {profile.nama}
+                      <hr />
+                    </div>
+                    <p className="text-muted text-end shadow pe-2">
+                      <span className="orange">Mastered Abilities: </span>
+                      {profile.bio}
+                      <hr />
+                    </p>
+                  </>
+                ))}
+              <span className="btn btn-warning mt-2">
+                <CiViewList className="icon" /> Riwayat Lamaran Kerja
+              </span>
+              <button
+                className="btn btn-info ms-3 mt-2"
+                onClick={() => {
+                  navigate("/createprofileuser");
+                }}
+              >
+                <CiEdit className="icon" /> Edit Profile
+              </button>
               <hr />
               <div className="shadow mt-5 border-bottom border-warning border-2 grow">
                 <h4 className="orange ms-3">PT Victory</h4>
@@ -90,38 +121,36 @@ function Profile() {
               </div>
             </div>
             <div className="col-3 ms-3 pt-3">
-              <div>
-                <h5 className="biodata orange">Biodata</h5>
-                <hr />
-                Tempat/Tgl Lahir: <br />
-                <br />
-                <br />
-                <hr />
-                Alamat: <br />
-                <br />
-                <br />
-                <hr />
-                Tinggi Badan: <br />
-                <br />
-                <br />
-                <hr />
-                Berat Badan: <br />
-                <br />
-                <br />
-                <hr />
-                Lulusan: <br />
-                <br />
-                <br />
-                <hr />
-                Pengalaman: <br />
-                <br />
-                <br />
-                <hr />
-                Keahlian: <br />
-                <br />
-                <br />
-                <hr />
-              </div>
+              {profile &&
+                profile.map((profile) => (
+                  <div key={profile.id}>
+                    <h5 className="biodata orange">Biodata</h5>
+                    <hr />
+                    Tempat/Tgl Lahir:{" "}
+                    <div className="font blue mt-2">
+                      {profile.tempat_tgl_lahir}
+                    </div>
+                    <hr />
+                    Alamat:{" "}
+                    <div className="font blue mt-2">{profile.alamat}</div>
+                    <hr />
+                    Tinggi Badan:{" "}
+                    <div className="font blue mt-2">{profile.tinggi_badan}</div>
+                    <hr />
+                    Berat Badan:{" "}
+                    <div className="font blue mt-2">{profile.berat_badan}</div>
+                    <hr />
+                    Lulusan:{" "}
+                    <div className="font blue mt-2">{profile.lulusan}</div>
+                    <hr />
+                    Pengalaman:{" "}
+                    <div className="font blue mt-2">{profile.pengalaman}</div>
+                    <hr />
+                    Keahlian:{" "}
+                    <div className="font blue mt-2">{profile.keahlian}</div>
+                    <hr />
+                  </div>
+                ))}
               <h5 className="biodata mt-5 orange">Contact</h5>
               <hr />
               <div className="text-center">

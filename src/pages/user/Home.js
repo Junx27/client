@@ -1,25 +1,116 @@
 import React, { useEffect, useState } from "react";
 import BerandaEvent from "../../components/BerandaEvent";
 import Card from "../../components/Card";
-import supabase from "../../config/supabaseClient";
+import supabase from "../../config/supabaseClientAdmin";
+import supabase1 from "../../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import LoginSession from "../../components/LoginSession";
-import Header from "../../components/Header";
+import Header from "../../components/HeaderAdmin";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import logoimg from "../../assets/images/logo.png";
+import ProfileName from "../../components/ProfileName";
+import { BsBoxArrowRight } from "react-icons/bs";
 
 function Home() {
   let navigate = useNavigate();
   const [session, setSession] = useState();
 
+  const [posts, setPosts] = useState();
   useEffect(() => {
-    setSession(supabase.auth.getSession());
+    fetchPosts();
+  }, [fetchPosts]);
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchPosts() {
+    const { data: posts } = await supabase.from("posts").select("*");
+
+    setPosts(posts);
+  }
+  console.log(posts);
+  useEffect(() => {
+    setSession(supabase1.auth.getSession());
+
+    supabase1.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
   }, []);
+
+  function handleLogOut(e) {
+    const { data } = supabase1.auth.signOut();
+    console.log(data);
+  }
+
+  console.log(posts);
   return (
     <>
-      <Header />
+      <Navbar sticky="top" bg="light" expand="lg">
+        <Container className="container d-flex">
+          <img
+            className="me-3"
+            style={{
+              width: "40px",
+              height: "auto",
+            }}
+            src={logoimg}
+            alt=""
+          />
+          <Navbar.Brand>
+            <h1 className="font mt-2">
+              IL<span className="orange">OK</span>A
+            </h1>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              {session ? (
+                <>
+                  <Nav.Link className="text-hover" href="/home">
+                    Beranda
+                  </Nav.Link>
+                  <Nav.Link className="text-hover" href="/profile">
+                    Profile
+                  </Nav.Link>
+                  <Nav.Link className="text-hover" href="/info">
+                    Info
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link className="text-hover" href="/">
+                    Home
+                  </Nav.Link>
+                  <Nav.Link className="text-hover" href="/about">
+                    About
+                  </Nav.Link>
+                  <Nav.Link className="text-hover" href="/contact">
+                    Contact Us
+                  </Nav.Link>
+                </>
+              )}
+            </Nav>
+            <ProfileName />
+            <Nav>
+              {session ? (
+                <>
+                  <button
+                    className="icon btn mb-2"
+                    href="/"
+                    onClick={handleLogOut}
+                  >
+                    <BsBoxArrowRight />
+                  </button>
+                </>
+              ) : (
+                <Nav.Link className="bg-orange-hover bg-orange" href="/login">
+                  Get Started
+                </Nav.Link>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <div className="container">
         <>
           {session ? (
@@ -53,18 +144,12 @@ function Home() {
                     Daftar Lowongan <span className="orange">Pekerjaan</span>
                   </h4>
                   <hr />
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
+                  {posts &&
+                    posts.map((posts) => (
+                      <div className="shadow p-3 mb-5">
+                        <Card key={posts.id} posts={posts} />
+                      </div>
+                    ))}
                 </div>
               </div>
             </>

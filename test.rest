@@ -11,3 +11,11 @@ curl -X POST 'https://rhmjeleyaoxxsomfutfr.supabase.co/auth/v1/signup' \
   "email": "tari@gmail.com",
   "password": "tariku"
 }'
+
+###
+curl -X POST 'https://dbhpkmvigjuofpaqsvxn.supabase.co/rest/v1/posts' \
+-H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiaHBrbXZpZ2p1b2ZwYXFzdnhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ5MzEwNzQsImV4cCI6MjAwMDUwNzA3NH0.ug5C8CixUmJfbVpHavRonD0mqMuSDeaOiTPpbLoxcws" \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiaHBrbXZpZ2p1b2ZwYXFzdnhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ5MzEwNzQsImV4cCI6MjAwMDUwNzA3NH0.ug5C8CixUmJfbVpHavRonD0mqMuSDeaOiTPpbLoxcws" \
+-H "Content-Type: application/json" \
+-H "Prefer: return=minimal" \
+-d '{ "judul_pekerjaan": "operator" }'

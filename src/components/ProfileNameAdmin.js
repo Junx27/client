@@ -3,12 +3,11 @@ import { createClient } from "@supabase/supabase-js";
 import { BsPersonCircle } from "react-icons/bs";
 
 const supabase = createClient(
-  "https://rhmjeleyaoxxsomfutfr.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJobWplbGV5YW94eHNvbWZ1dGZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM2MDU2NTYsImV4cCI6MTk5OTE4MTY1Nn0.Sph_5i5LbER1fQXMsBuO72Rkx_VPsaO47liXOcdMKAs"
+  "https://dbhpkmvigjuofpaqsvxn.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiaHBrbXZpZ2p1b2ZwYXFzdnhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ5MzEwNzQsImV4cCI6MjAwMDUwNzA3NH0.ug5C8CixUmJfbVpHavRonD0mqMuSDeaOiTPpbLoxcws"
 );
 
-export default function ProfileName() {
-  const [session, setSession] = useState(null);
+export default function PrifileName() {
   const [profile, setProfile] = useState();
   useEffect(() => {
     fetchProfile();
@@ -16,13 +15,14 @@ export default function ProfileName() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchProfile() {
-    const { data: profile } = await supabase
+    const { data } = await supabase
       .from("profile")
       .select("*")
       .eq("user_id", session.user.id);
 
-    setProfile(profile);
+    setProfile(data);
   }
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -45,8 +45,8 @@ export default function ProfileName() {
         {profile &&
           profile.map((profile) => (
             <>
-              <BsPersonCircle className="me-3 icon" />
-              <div key={profile.id}>{profile.nama_panggilan}</div>
+              <BsPersonCircle key={profile.id} className="me-3 icon" />
+              {profile.nama}
             </>
           ))}
       </div>

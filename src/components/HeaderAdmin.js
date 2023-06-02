@@ -5,7 +5,8 @@ import Nav from "react-bootstrap/Nav";
 import logoimg from "../assets/images/logo.png";
 import { useEffect, useState } from "react";
 import supabase from "../config/supabaseClientAdmin";
-import ProfileName from "./ProfileName";
+import ProfileName from "./ProfileNameAdmin";
+import { BsBoxArrowRight } from "react-icons/bs";
 
 function Header() {
   const [session, setSession] = useState();
@@ -22,7 +23,6 @@ function Header() {
     const { data } = supabase.auth.signOut();
     console.log(data);
   }
-
   return (
     <div>
       <Navbar sticky="top" bg="light" expand="lg">
@@ -75,11 +75,11 @@ function Header() {
               {session ? (
                 <>
                   <button
-                    className="bg-orange-hover bg-orange"
+                    className="icon btn mb-2"
                     href="/"
                     onClick={handleLogOut}
                   >
-                    Logout
+                    <BsBoxArrowRight />
                   </button>
                 </>
               ) : (

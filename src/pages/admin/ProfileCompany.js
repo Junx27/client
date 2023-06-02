@@ -10,6 +10,35 @@ function ProfileCompany() {
   let navigate = useNavigate();
   const [session, setSession] = useState();
 
+  const [posts, setPosts] = useState();
+  const [nama, setNama] = useState();
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchPosts() {
+    const { data: posts } = await supabase
+      .from("posts")
+      .select("*")
+      .eq("user_id", session.user.id);
+
+    setPosts(posts);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchProfile() {
+    const { data: profile } = await supabase
+      .from("profile")
+      .select("*")
+      .eq("user_id", session.user.id);
+
+    setNama(profile);
+  }
+
   useEffect(() => {
     setSession(supabase.auth.getSession());
 
@@ -33,29 +62,39 @@ function ProfileCompany() {
             style={{ width: "100px", height: "100px" }}
             alt=""
           />
-          <h5 className="orange">PT Boyang Industrial</h5>
-          <hr />
-          <p className="text-muted">
-            Jalan Jendral Ahmad Yani No.4-A, Kandang Gampang, Kec. Purbalingga,
-            Kabupaten Purbalingga, Jawa Tengah 53312
-          </p>
+
+          {nama &&
+            nama.map((profile) => {
+              return (
+                <div key={profile.id}>
+                  <h5 className="orange">{profile.nama}</h5>
+                  <hr />
+                  <p className="text-muted">{profile.alamat}</p>
+                </div>
+              );
+            })}
+
           <div className="d-flex justify-content-end">
-            <button className="btn btn-info">edit</button>
+            <button
+              className="btn btn-info"
+              onClick={() => {
+                navigate("/createprofile");
+              }}
+            >
+              edit
+            </button>
           </div>
         </div>
         <div className="row mt-5">
           <div className="col-6 me-3">
             <h5 className="orange text-center">Riwayat Lowongan Pekerjaan</h5>
             <hr />
-            <div className="shadow">
-              <Card />
-            </div>
-            <div className="shadow">
-              <Card />
-            </div>
-            <div className="shadow">
-              <Card />
-            </div>
+            {posts &&
+              posts.map((posts) => (
+                <div className="shadow p-3 mb-5">
+                  <Card key={posts.id} posts={posts} />
+                </div>
+              ))}
           </div>
           <div className="col-5 border-start">
             <h5 className="orange text-center">Daftar Pelamar Kerja</h5>

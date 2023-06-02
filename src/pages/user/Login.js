@@ -51,28 +51,33 @@ function Login() {
               onChange={handlePassword}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <button className="btn btn-primary me-5" onClick={handleLogin}>
-            Submit
+          <button className="btn btn-primary me-5 mb-2" onClick={handleLogin}>
+            Login
           </button>
-          <button
-            className="bg-orange"
-            onClick={() => {
-              navigate("/registration");
-            }}
-          >
-            Mendaftar
-          </button>
-          <button
-            className="bg-orange ms-5"
-            onClick={() => {
-              navigate("/admin");
-            }}
-          >
-            Admin
-          </button>
+          <div>
+            <div className="text-muted my-3">Belum Punya Akun</div>
+            <hr />
+            <button
+              className="btn btn-info"
+              onClick={() => {
+                navigate("/registration");
+              }}
+            >
+              Mendaftar
+            </button>
+          </div>
+          <div>
+            <div className="text-muted my-3">Login Sebagai Admin</div>
+            <hr />
+            <button
+              className="btn btn-warning"
+              onClick={() => {
+                navigate("/admin");
+              }}
+            >
+              Admin
+            </button>
+          </div>
         </Form>
       </div>
     </>

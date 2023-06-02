@@ -10,6 +10,18 @@ function Home() {
   let navigate = useNavigate();
   const [session, setSession] = useState();
 
+  const [posts, setPosts] = useState();
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchPosts() {
+    const { data: posts } = await supabase.from("posts").select("*");
+
+    setPosts(posts);
+  }
+
   useEffect(() => {
     setSession(supabase.auth.getSession());
 
@@ -17,6 +29,7 @@ function Home() {
       setSession(session);
     });
   }, []);
+
   return (
     <>
       <Header />
@@ -53,18 +66,12 @@ function Home() {
                     Daftar Lowongan <span className="orange">Pekerjaan</span>
                   </h4>
                   <hr />
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
-                  <div className="shadow p-3 mb-5">
-                    <Card />
-                  </div>
+                  {posts &&
+                    posts.map((posts) => (
+                      <div className="shadow p-3 mb-5">
+                        <Card key={posts.id} posts={posts} />
+                      </div>
+                    ))}
                 </div>
               </div>
             </>
