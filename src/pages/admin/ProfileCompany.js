@@ -1,102 +1,73 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import LogoCompany from "../../assets/images/logocompany.jpeg";
 import Card from "../../components/CardProfile";
 import supabase from "../../config/supabaseClientAdmin";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/HeaderAdmin";
+import HeaderProfil from "./HeaderProfil";
 
 function ProfileCompany() {
   let navigate = useNavigate();
-  const [session, setSession] = useState();
 
   const [posts, setPosts] = useState();
-  const [nama, setNama] = useState();
 
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
-  useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchPosts() {
-    const { data: posts } = await supabase
+    const { data: posts, error } = await supabase
       .from("posts")
       .select("*")
       .eq("user_id", session.user.id);
 
-    setPosts(posts);
+    if (posts) {
+      setPosts(posts);
+    }
+    if (error) {
+      setPosts(null);
+      console.log(error);
+    }
   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function fetchProfile() {
-    const { data: profile } = await supabase
-      .from("profile")
-      .select("*")
-      .eq("user_id", session.user.id);
 
-    setNama(profile);
-  }
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
-    setSession(supabase.auth.getSession());
-
-    supabase.auth.onAuthStateChange((_event, session) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-  }, []);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
 
+    return () => subscription.unsubscribe();
+  }, []);
   if (!session) {
-    navigate("/login");
+    navigate("/");
   }
 
   return (
     <>
-      <Header />
+      <div className="sticky-top">
+        <Header />
+      </div>
       <div className="container mt-3">
-        <div className="text-center shadow p-3">
-          <img
-            className=""
-            src={LogoCompany}
-            style={{ width: "100px", height: "100px" }}
-            alt=""
-          />
-
-          {nama &&
-            nama.map((profile) => {
-              return (
-                <div key={profile.id}>
-                  <h5 className="orange">{profile.nama}</h5>
-                  <hr />
-                  <p className="text-muted">{profile.alamat}</p>
-                </div>
-              );
-            })}
-
-          <div className="d-flex justify-content-end">
-            <button
-              className="btn btn-info"
-              onClick={() => {
-                navigate("/createprofile");
-              }}
-            >
-              edit
-            </button>
-          </div>
-        </div>
+        <HeaderProfil />
         <div className="row mt-5">
-          <div className="col-6 me-3">
+          <div className="col-lg-6 me-lg-3">
             <h5 className="orange text-center">Riwayat Lowongan Pekerjaan</h5>
             <hr />
             {posts &&
               posts.map((posts) => (
-                <div className="shadow p-3 mb-5">
-                  <Card key={posts.id} posts={posts} />
+                <div className="shadow p-3 mb-5" key={posts.id}>
+                  <Card posts={posts} />
                 </div>
               ))}
           </div>
-          <div className="col-5 border-start">
+          <div className="col-lg-5 border-start">
             <h5 className="orange text-center">Daftar Pelamar Kerja</h5>
             <hr />
             <Table striped bordered hover>
@@ -116,8 +87,8 @@ function ProfileCompany() {
                     <button className="btn btn-success me-2">Unduh</button>
                   </td>
                   <td>
-                    <button className="btn btn-success me-2">YES</button>
-                    <button className="btn btn-danger">NO</button>
+                    <button className="btn btn-success me-3 mb-2">YES</button>
+                    <button className="btn btn-danger mb-2">NO</button>
                   </td>
                 </tr>
                 <tr>
@@ -127,8 +98,8 @@ function ProfileCompany() {
                     <button className="btn btn-success me-2">Unduh</button>
                   </td>
                   <td>
-                    <button className="btn btn-success me-2">YES</button>
-                    <button className="btn btn-danger">NO</button>
+                    <button className="btn btn-success me-3 mb-2">YES</button>
+                    <button className="btn btn-danger mb-2">NO</button>
                   </td>
                 </tr>
               </tbody>

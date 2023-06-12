@@ -23,17 +23,19 @@ function Info() {
 
   return (
     <>
-      <Header />
+      <div className="sticky-top">
+        <Header />
+      </div>
       <div className="container mt-5">
         <div className="row">
-          <div className="col-4 me-1 ms-5">
+          <div className="col-lg-4 me-lg-1 ms-lg-5 mb-5">
             <h5 className="orange">Informasi ILOKA</h5>
             <br />
             <div>1. Bagaimana Melamar Kerja di ILOKA?</div>
             <br />
             <div>2. Mengapa Harus Memilih ILOKA?</div>
           </div>
-          <div className="col-7">
+          <div className="col-lg-7">
             <h5 className="text-center orange">Status Lamaran Kerja</h5>
             <hr />
             <div className="shadow px-3 py-3 mt-5">

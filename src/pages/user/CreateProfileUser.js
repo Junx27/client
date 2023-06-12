@@ -15,6 +15,7 @@ function CreateProfileUser() {
   const [pengalaman, setPengalaman] = useState();
   const [keahlian, setKeahlian] = useState();
   const [bio, setBio] = useState();
+  const [nama_panggilan, setNama_panggilan] = useState();
 
   async function createPost(e) {
     e.preventDefault();
@@ -22,6 +23,7 @@ function CreateProfileUser() {
     const { data } = await supabase.from("profile").insert([
       {
         nama,
+        nama_panggilan,
         tempat_tgl_lahir,
         alamat,
         tinggi_badan,
@@ -36,6 +38,30 @@ function CreateProfileUser() {
     navigate("/profile");
   }
 
+  useEffect(() => {
+    updatePosts();
+  }, [updatePosts]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function updatePosts() {
+    const { data } = await supabase
+      .from("profile")
+      .select("*")
+      .eq("user_id", session.user.id)
+      .single();
+    if (data) {
+      setNama(data?.nama);
+      setTempat(data?.tempat_tgl_lahir);
+      setAlamat(data?.alamat);
+      setTinggiBadan(data?.tinggi_badan);
+      setBeratBadan(data?.berat_badan);
+      setLulusan(data?.lulusan);
+      setPengalaman(data?.pengalaman);
+      setKeahlian(data?.keahlian);
+      setBio(data?.bio);
+    }
+  }
+
   let navigate = useNavigate();
   const [session, setSession] = useState();
 
@@ -48,7 +74,9 @@ function CreateProfileUser() {
   }, []);
   return (
     <div>
-      <Header />
+      <div className="sticky-top">
+        <Header />
+      </div>
       <div className="container">
         <div className="container mt-5" style={{ width: "800px" }}>
           <h1 className="font text-center blue">
@@ -63,6 +91,15 @@ function CreateProfileUser() {
                 placeholder=""
                 value={nama}
                 onChange={(e) => setNama(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 mt-3">
+              <Form.Label>Nama Panggilan</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder=""
+                value={nama_panggilan}
+                onChange={(e) => setNama_panggilan(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-2 mt-3">

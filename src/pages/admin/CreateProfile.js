@@ -31,17 +31,20 @@ function CreateProfile() {
 
     const { data } = await supabase.from("profile").insert([
       {
-        nama,
-        alamat,
+        nama: nama,
+        alamat: alamat,
         user_id: session.user.id,
       },
     ]);
+
     navigate("/profilecompany");
   }
 
   return (
     <>
-      <Header />
+      <div className="sticky-top">
+        <Header />
+      </div>
       <div className="container w-50">
         <Form className="border border-warning  rounded p-5 mt-5 shadow p-3 mb-5 bg-body">
           <Form.Group className="mb-3" controlId="formBasicEmail">

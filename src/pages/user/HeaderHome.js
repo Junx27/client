@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import logoimg from "../assets/images/logo.png";
-import { useEffect, useState } from "react";
-import supabase from "../config/supabaseClient";
-import ProfileName from "./ProfileName";
-import Logout from "./LogoutUser";
+import logoimg from "../../assets/images/logo.png";
+import ProfileName from "../../components/ProfileName";
+import supabase from "../../config/supabaseClient";
+import Logout from "../../components/LogoutUser";
 
-function Header() {
-  const [session, setSession] = useState();
+function HeaderHome() {
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
-    setSession(supabase.auth.getSession());
-
-    supabase.auth.onAuthStateChange((_event, session) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-  }, []);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
 
+    return () => subscription.unsubscribe();
+  }, []);
   return (
     <div>
       <Navbar sticky="top" bg="light" expand="lg">
@@ -85,4 +88,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderHome;

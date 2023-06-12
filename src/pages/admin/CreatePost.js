@@ -6,20 +6,59 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/HeaderAdmin";
 
 function CreatePost() {
-  const [judul_pekerjaan, setJudul] = useState();
-  const [gaji, setGaji] = useState();
-  const [tunjangan, setTunjangan] = useState();
-  const [quantity, setQuantity] = useState();
-  const [jenis_kelamin, setJenisKelamin] = useState();
-  const [usia, setUsia] = useState();
-  const [lulusan, setLulusan] = useState();
-  const [tinggi_badan, setTinggiBadan] = useState();
-  const [skill, setSkill] = useState();
-  const [nama_perusahaan, setPublished] = useState();
+  const [judul_pekerjaan, setJudul] = useState("");
+  const [gaji, setGaji] = useState("");
+  const [tunjangan, setTunjangan] = useState("");
+  const [quantity, setQuantity] = useState("0");
+  const [jenis_kelamin, setJenisKelamin] = useState("");
+  const [usia, setUsia] = useState("");
+  const [lulusan, setLulusan] = useState("");
+  const [tinggi_badan, setTinggiBadan] = useState("");
+  const [skill, setSkill] = useState("");
+  const [formError, setFormError] = useState(null);
 
   async function createPost(e) {
     e.preventDefault();
-
+    if (!profile) {
+      setFormError("Masukan Published");
+      return;
+    }
+    if (!judul_pekerjaan) {
+      setFormError("Masukan Judul Pekerjaan");
+      return;
+    }
+    if (!gaji) {
+      setFormError("Masukan Gaji");
+      return;
+    }
+    if (!tunjangan) {
+      setFormError("Masukan Tunjangan");
+      return;
+    }
+    if (!quantity) {
+      setFormError("Masukan Quantity");
+      return;
+    }
+    if (!jenis_kelamin) {
+      setFormError("Masukan Jenis Kelamin");
+      return;
+    }
+    if (!usia) {
+      setFormError("Masukan Usia");
+      return;
+    }
+    if (!lulusan) {
+      setFormError("Masukan Lulusan");
+      return;
+    }
+    if (!tinggi_badan) {
+      setFormError("Masukan Tinggi Bandan");
+      return;
+    }
+    if (!skill) {
+      setFormError("Masukan Skill");
+      return;
+    }
     const { data } = await supabase.from("posts").insert([
       {
         judul_pekerjaan,
@@ -72,9 +111,11 @@ function CreatePost() {
   }
   return (
     <>
-      <Header />
+      <div className="sticky-top">
+        <Header />
+      </div>
       <div className="container">
-        <div className="container mt-5" style={{ width: "800px" }}>
+        <div className="container mt-5">
           <h1 className="font text-center blue">
             Create <span className="orange">New Job</span>
           </h1>
@@ -121,24 +162,44 @@ function CreatePost() {
             <Form.Group className="mb-3 mt-3">
               <Form.Label>Quantity</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
+                min="0"
+                max="200"
                 placeholder=""
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3 mt-3">
+            <Form.Group className="mb-3 mt-3 orange font">
               <Form.Label>Persyaratan</Form.Label>
             </Form.Group>
             <hr />
             <Form.Group className="mb-3 mt-3">
               <Form.Label>Jenis Kelamin</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder=""
-                value={jenis_kelamin}
-                onChange={(e) => setJenisKelamin(e.target.value)}
-              />
+              <div className="blue mx-4">
+                <input
+                  type="radio"
+                  name="jenis_kelamin"
+                  value="Laki-laki"
+                  onChange={(e) => setJenisKelamin(e.target.value)}
+                />
+                <span className="mx-3">Laki-laki</span>
+                <input
+                  type="radio"
+                  name="jenis_kelamin"
+                  value="Wanita"
+                  onChange={(e) => setJenisKelamin(e.target.value)}
+                />
+                <span className="mx-3">Wanita</span>
+
+                <input
+                  type="radio"
+                  name="jenis_kelamin"
+                  value="Laki-laki dan Wanita"
+                  onChange={(e) => setJenisKelamin(e.target.value)}
+                />
+                <span className="mx-3">Laki-laki dan Wanita</span>
+              </div>
             </Form.Group>
             <Form.Group className="mb-3 mt-3">
               <Form.Label>Usia</Form.Label>
@@ -180,6 +241,7 @@ function CreatePost() {
               <Form.Label>Published</Form.Label>
               <Form.Control type="text" placeholder="" value={profile} />
             </Form.Group>
+            <p className="mb-3 span">{formError}</p>
             <div className="mb-3 mt-5 d-flex justify-content-end">
               <Button type="submit" onClick={createPost}>
                 Create Post

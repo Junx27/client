@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
 import { BsPersonCircle } from "react-icons/bs";
-
-const supabase = createClient(
-  "https://rhmjeleyaoxxsomfutfr.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJobWplbGV5YW94eHNvbWZ1dGZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM2MDU2NTYsImV4cCI6MTk5OTE4MTY1Nn0.Sph_5i5LbER1fQXMsBuO72Rkx_VPsaO47liXOcdMKAs"
-);
+import supabase from "../config/supabaseClient";
 
 export default function ProfileName() {
   const [session, setSession] = useState(null);
@@ -44,10 +39,10 @@ export default function ProfileName() {
       <div className="orange font_profile me-2">
         {profile &&
           profile.map((profile) => (
-            <>
+            <div key={profile.id}>
               <BsPersonCircle className="me-3 icon" />
-              <div key={profile.id}>{profile.nama_panggilan}</div>
-            </>
+              <>{profile.nama_panggilan}</>
+            </div>
           ))}
       </div>
     );

@@ -17,18 +17,12 @@ function Registration() {
   };
   const handleShow = () => setShow(true);
 
-  const [username, setUserName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [formError, setFormError] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    if (!username) {
-      setFormError("Masukan User");
-      return;
-    }
     if (!email) {
       setFormError("Masukan Email");
       return;
@@ -55,21 +49,13 @@ function Registration() {
   return (
     <>
       <Header />
-      <div className="container w-50 mt-5">
+      <div className="container mt-5">
         <h1 className="text-center mt-3 blue font">
           Registra<span className="orange">tion</span>
         </h1>
         <hr />
         <Form className="border border-warning  rounded p-5 mt-5 shadow p-3 mb-5 bg-body">
           <p className="mb-3 span">{formError}</p>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="email"
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control

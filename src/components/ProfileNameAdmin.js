@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
 import { BsPersonCircle } from "react-icons/bs";
+import supabase from "../config/supabaseClientAdmin";
 
-const supabase = createClient(
-  "https://dbhpkmvigjuofpaqsvxn.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiaHBrbXZpZ2p1b2ZwYXFzdnhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODQ5MzEwNzQsImV4cCI6MjAwMDUwNzA3NH0.ug5C8CixUmJfbVpHavRonD0mqMuSDeaOiTPpbLoxcws"
-);
-
-export default function PrifileName() {
+export default function ProfileNameCompany() {
   const [profile, setProfile] = useState();
   useEffect(() => {
     fetchProfile();
@@ -15,14 +10,14 @@ export default function PrifileName() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchProfile() {
-    const { data } = await supabase
+    const { data: profile } = await supabase
       .from("profile")
       .select("*")
       .eq("user_id", session.user.id);
 
-    setProfile(data);
+    setProfile(profile);
   }
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -38,16 +33,15 @@ export default function PrifileName() {
   }, []);
 
   if (!session) {
-    return <div></div>;
   } else {
     return (
       <div className="orange font_profile me-2">
         {profile &&
           profile.map((profile) => (
-            <>
-              <BsPersonCircle key={profile.id} className="me-3 icon" />
+            <div key={profile.id}>
+              <BsPersonCircle className="me-3 icon" />
               {profile.nama}
-            </>
+            </div>
           ))}
       </div>
     );

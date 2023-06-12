@@ -1,107 +1,65 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import supabase from "../config/supabaseClientAdmin";
+import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import img from "../assets/images/facebook.png";
-import img1 from "../assets/images/instagram.png";
+import Card from "./CardTest";
 
 function SignUp() {
+  const [data, setData] = useState();
+  const [username, setUserName] = useState();
+  const [username1, setUserName1] = useState();
+  const [session, setSession] = useState();
   let navigate = useNavigate();
-  const [nama, setPost] = useState();
-  const [session, setSession] = useState(null);
-  const [gambar, setGambar] = useState();
-
-  const [profile, setProfile] = useState();
   useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
+    getData();
+  }, [getData]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function fetchProfile() {
-    const { data } = await supabase
-      .from("profile")
-      .select("*")
-      .eq("user_id", session.user.id)
-      .single();
-
-    if (data) {
-      setProfile(data?.nama);
-    }
+  async function getData() {
+    let { data: test } = await supabase.from("test").select("*");
+    setData(test);
   }
-  console.log(profile);
-
+  async function handleCreate() {
+    let { data: test } = await supabase
+      .from("test")
+      .insert([{ username, user_id: session.user.id }]);
+    window.location.reload();
+  }
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+    setSession(supabase.auth.getSession());
 
-    return () => subscription.unsubscribe();
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
   }, []);
 
-  function handlePost(e) {
-    setPost(e.target.value);
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    const { data } = await supabase.from("profile").insert([
-      {
-        nama,
-        user_id: session.user.id,
-      },
-    ]);
-  }
-
-  const handleLogin = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: "admin@gmail.com",
-      password: "adminku",
-    });
-    navigate("/homeadmin");
-  };
-
-  async function handleCreateAdmin(e) {
-    e.preventDefault();
-
-    let { data, error } = await supabase.auth.signUp({
-      email: "admin@gmail.com",
-      password: "adminku",
-    });
-  }
-  const handleSignOut = async () => {
-    const { data } = supabase.auth.signOut();
-  };
   return (
     <div>
-      <label htmlFor="">post</label>
-      <br />
-      <input type="text" value={nama} onChange={handlePost} />
-      <button onClick={handleSubmit}>submit</button>
-      <br />
-      <br />
-      <button onClick={handleLogin}>login</button>
-      <button onClick={handleCreateAdmin}>Create Admin</button>
-      <button onClick={handleSignOut}>Signout</button>
+      <div className="container w-50">
+        Upload and Deploy in Vercel
+        <h2>Create Data</h2>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <br />
+        <button className="btn btn-warning mt-2" onClick={handleCreate}>
+          Create
+        </button>
+      </div>
 
-      <Form.Group className="mb-2 mt-3">
-        <Form.Label>gambar</Form.Label>
-        <Form.Control type="text" placeholder="" value={profile} />
-      </Form.Group>
-      <Form.Select
-        className="mb-3"
-        value={gambar}
-        onChange={(e) => setGambar(e.target.value)}
-      >
-        <option></option>
-        <option value={img}>facebook</option>
-        <option value={img1}>instagram</option>
-      </Form.Select>
+      <div className="container w-50 mt-5">
+        <h2>Output Data</h2>
+        <hr />
+        {data &&
+          data.map((profile) => {
+            return (
+              <div key={profile.id}>
+                <Card data={profile} />
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 }

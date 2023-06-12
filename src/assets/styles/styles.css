@@ -3,8 +3,9 @@
 .span {
   text-align: center;
   color: white;
-  font-size: 15px;
+  font-size: 16px;
   background-color: red;
+  border-radius: 5px;
 }
 
 .icon {
@@ -26,7 +27,7 @@
 .bg-pink {
   color: white;
   background-color: #e11299;
-  width: 400px;
+  width: 350px;
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
@@ -153,6 +154,46 @@
   width: 1000px;
   height: auto;
   align-items: center;
+}
+.sizeimg img {
+  width: 480px;
+}
+.lottipleyer {
+  width: 480px;
+}
+
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .container-event {
+    width: 400px;
+    height: auto;
+    align-items: normal;
+  }
+  .profile {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background-color: #fc4f00;
+    margin-top: -70px;
+    margin-left: 90px;
+  }
+  .name {
+    font-size: 1.5rem;
+    font-family: Secular One, sans-serif;
+    margin-top: 10px;
+    margin-left: 80px;
+    padding-bottom: 10px;
+  }
+  .pop {
+    margin-left: 55px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .sizeimg img {
+    width: 100%;
+  }
+  .lottipleyer {
+    width: 100%;
+  }
 }
 .text-muted-footer {
   color: white;
