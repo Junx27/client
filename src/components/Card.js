@@ -9,8 +9,6 @@ function Card({ posts }) {
       <div className="mb-5">
         <div className=" ms-2">
           <figure className="">
-            <img src={sample_image} className="img-thumbnail rounded" />
-            <img src={sample_image} className="img-thumbnail rounded mt-2" />
             <h5 className="orange mt-3 border border-warning rounded py-2">
               {posts.judul_pekerjaan}
             </h5>
