@@ -237,6 +237,9 @@
   .text-hiden {
     display: none;
   }
+  .remove-user-profile {
+    display: none;
+  }
 }
 
 .text-muted-footer {
@@ -261,14 +264,15 @@
   margin-left: 5px;
 }
 
-.hapusFotoProfile {
+.remove-user-profile {
   position: absolute;
-  z-index: 77;
-  margin-top: 210px;
-  padding: 10px;
-  margin-right: 1px;
+  margin-top: 67px;
+  margin-left: 555px;
 }
 
 .gambarBulat {
   border-radius: 100%;
+  margin-top: -228px;
+  margin-left: 30px;
+  position: relative;
 }

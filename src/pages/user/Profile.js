@@ -54,6 +54,19 @@ function Profile() {
   let navigate = useNavigate();
   const [session, setSession] = useState();
   const [profile, setProfile] = useState();
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function fetchProfile() {
+    const { data: profile } = await supabase
+      .from("profile")
+      .select("*")
+      .eq("user_id", session.user.id);
+
+    setProfile(profile);
+  }
 
   const CDNURL =
     "https://rhmjeleyaoxxsomfutfr.supabase.co/storage/v1/object/public/gambar/";
@@ -162,37 +175,30 @@ function Profile() {
                       className="input-images"
                     />
                   </div>
-
-
-
-
-                  <Row xs={1} md={3} className="view-images">
-            {gambar.map((image) => {
-              return (
-                <Col key={CDNURL + session.user.id + "/" + image.name}>
-        
-              
-                    <img
-                      src={CDNURL + session.user.id + "/" + image.name}
-                      className="gambarBulat"
-                    />
-                    <Button
-                        className="hapusFotoProfile"
-                        variant="danger"
-                        onClick={() => deleteImage(image.name)}
-                      >
-                        <AiFillDelete/> Hapus Foto
-                      </Button>
-                
-                </Col>
-              );
-            })}
-          </Row>
-
-
-
-
                 </div>
+                <div>
+                  {gambar.map((image) => {
+                    return (
+                      <>
+                        <img
+                          src={CDNURL + session.user.id + "/" + image.name}
+                          alt=""
+                          className="gambarBulat"
+                        />
+                        <div className="remove-user-profile">
+                          <button
+                            className="btn btn-danger mt-2 ms-2"
+                            onClick={() => deleteImage(image.name)}
+                          >
+                            <AiFillDelete className="icon" />
+                            <span className="text-hiden">Remove Image</span>
+                          </button>
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+
                 {profile &&
                   profile.map((profile) => (
                     <div key={profile.id}>
